@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Vim配置 - Beantech | 豆科技
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite-url/2016/11/13/vim配置/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('undefined')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#vim" title="vim">vim</a>
+                            
+                        </div>
+                        <h1>Vim配置</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Jeack on
+                            2016-11-13
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Jeack Tech</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>对vim进行界面配置，以适应不同开发者的开发需求。</p>
+<a id="more"></a>
+<h2><span id="基本配置">基本配置</span></h2>
+<p>你只要在Home目录下创建一个~/vimrc文件就可以配置vim了，如果想要所有用户生效，请修改/etc/vimrc。<br>
+###常用配置命令</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> nocompatible <span class="comment">" 关闭 vi 兼容模式</span></span><br><span class="line"><span class="keyword">syntax</span> <span class="keyword">on</span> <span class="comment">" 自动语法高亮</span></span><br><span class="line"><span class="keyword">colorscheme</span> molokai <span class="comment">" 设定配色方案</span></span><br><span class="line"><span class="keyword">set</span> <span class="keyword">number</span> <span class="comment">" 显示行号</span></span><br><span class="line"><span class="keyword">set</span> cursorline <span class="comment">" 突出显示当前行</span></span><br><span class="line"><span class="keyword">set</span> ruler <span class="comment">" 打开状态栏标尺</span></span><br><span class="line"><span class="keyword">set</span> <span class="built_in">shiftwidth</span>=<span class="number">4</span> <span class="comment">" 设定 &lt;&lt; 和 &gt;&gt; 命令移动时的宽度为 4</span></span><br><span class="line"><span class="keyword">set</span> softtabstop=<span class="number">4</span> <span class="comment">" 使得按退格键时可以一次删掉 4 个空格</span></span><br><span class="line"><span class="keyword">set</span> tabstop=<span class="number">4</span> <span class="comment">" 设定 tab 长度为 4</span></span><br><span class="line"><span class="keyword">set</span> nobackup <span class="comment">" 覆盖文件时不备份</span></span><br><span class="line"><span class="keyword">set</span> autochdir <span class="comment">" 自动切换当前目录为当前文件所在的目录</span></span><br><span class="line"><span class="keyword">filetype</span> plugin <span class="built_in">indent</span> <span class="keyword">on</span> <span class="comment">" 开启插件</span></span><br><span class="line"><span class="keyword">set</span> backupcopy=yes <span class="comment">" 设置备份时的行为为覆盖</span></span><br><span class="line"><span class="keyword">set</span> ignorecase smartcase <span class="comment">" 搜索时忽略大小写，但在有一个或以上大写字母时仍保持对大小写敏感</span></span><br><span class="line"><span class="keyword">set</span> nowrapscan <span class="comment">" 禁止在搜索到文件两端时重新搜索</span></span><br><span class="line"><span class="keyword">set</span> incsearch <span class="comment">" 输入搜索内容时就显示搜索结果</span></span><br><span class="line"><span class="keyword">set</span> hlsearch <span class="comment">" 搜索时高亮显示被找到的文本</span></span><br><span class="line"><span class="keyword">set</span> noerrorbells <span class="comment">" 关闭错误信息响铃</span></span><br><span class="line"><span class="keyword">set</span> novisualbell <span class="comment">" 关闭使用可视响铃代替呼叫</span></span><br><span class="line"><span class="keyword">set</span> t_vb= <span class="comment">" 置空错误铃声的终端代码</span></span><br><span class="line"><span class="string">" set showmatch "</span> 插入括号时，短暂地跳转到匹配的对应括号</span><br><span class="line"><span class="string">" set matchtime=2 "</span> 短暂跳转到匹配括号的时间</span><br><span class="line"><span class="keyword">set</span> magic <span class="comment">" 设置魔术</span></span><br><span class="line"><span class="keyword">set</span> hidden <span class="comment">" 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存</span></span><br><span class="line"><span class="keyword">set</span> guioptions-=T <span class="comment">" 隐藏工具栏</span></span><br><span class="line"><span class="keyword">set</span> guioptions-=<span class="keyword">m</span> <span class="comment">" 隐藏菜单栏</span></span><br><span class="line"><span class="keyword">set</span> smartindent <span class="comment">" 开启新行时使用智能自动缩进</span></span><br><span class="line"><span class="keyword">set</span> backspace=<span class="built_in">indent</span>,eol,start</span><br><span class="line"><span class="comment">" 不设定在插入状态无法用退格键和 Delete 键删除回车符</span></span><br><span class="line"><span class="keyword">set</span> cmdheight=<span class="number">1</span> <span class="comment">" 设定命令行的行数为 1</span></span><br><span class="line"><span class="keyword">set</span> laststatus=<span class="number">2</span> <span class="comment">" 显示状态栏 (默认值为 1, 无法显示状态栏)</span></span><br><span class="line"><span class="keyword">set</span> statusline=\ %&lt;%F[%<span class="number">1</span>*%M%*%n%R%H]%=\ %<span class="keyword">y</span>\ %<span class="number">0</span>(%&#123;&amp;fileformat&#125;\ %&#123;&amp;encoding&#125;\ %<span class="keyword">c</span>:%<span class="keyword">l</span>/%L%)\ </span><br><span class="line"><span class="comment">" 设置在状态行显示的信息</span></span><br><span class="line"><span class="keyword">set</span> foldenable <span class="comment">" 开始折叠</span></span><br><span class="line"><span class="keyword">set</span> foldmethod=<span class="keyword">syntax</span> <span class="comment">" 设置语法折叠</span></span><br><span class="line"><span class="keyword">set</span> foldcolumn=<span class="number">0</span> <span class="comment">" 设置折叠区域的宽度</span></span><br><span class="line"><span class="keyword">setlocal</span> <span class="built_in">foldlevel</span>=<span class="number">1</span> <span class="comment">" 设置折叠层数为</span></span><br><span class="line"><span class="string">" set foldclose=all "</span> 设置为自动关闭折叠 </span><br><span class="line"><span class="comment">" nnoremap &lt;space&gt; @=((foldclosed(line('.')) &lt; 0) ? 'zc' : 'zo')&lt;CR&gt;</span></span><br><span class="line"><span class="comment">" 用空格键来开关折叠</span></span><br></pre></td></tr></table></figure>
+<h3><span id="一键执行">一键执行</span></h3>
+<p>很多时候完成代码后都要返回命令行执行，有时候会很麻烦，这时一键执行就实用很多。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">map</span> <span class="symbol">&lt;F9&gt;</span> :<span class="keyword">call</span> CompileRunGcc()<span class="symbol">&lt;CR&gt;</span></span><br><span class="line">func! CompileRunGcc()</span><br><span class="line">    exec <span class="string">"w"</span></span><br><span class="line">    <span class="keyword">if</span> &amp;<span class="keyword">filetype</span> == <span class="string">'c'</span></span><br><span class="line">        exec <span class="string">"!g++ % -o %&lt;"</span></span><br><span class="line">        exec <span class="string">"!time ./%&lt;"</span></span><br><span class="line">    <span class="keyword">elseif</span> &amp;<span class="keyword">filetype</span> == <span class="string">'cpp'</span></span><br><span class="line">        exec <span class="string">"!g++ % -o %&lt;"</span></span><br><span class="line">        exec <span class="string">"!time ./%&lt;"</span></span><br><span class="line">    <span class="keyword">elseif</span> &amp;<span class="keyword">filetype</span> == <span class="string">'java'</span></span><br><span class="line">        exec <span class="string">"!javac %"</span></span><br><span class="line">        exec <span class="string">"!time java %&lt;"</span></span><br><span class="line">    <span class="keyword">elseif</span> &amp;<span class="keyword">filetype</span> == <span class="string">'sh'</span></span><br><span class="line">        :!time bash %</span><br><span class="line">    <span class="keyword">elseif</span> &amp;<span class="keyword">filetype</span> == <span class="string">'python'</span></span><br><span class="line">        exec <span class="string">"!time python2.7 %"</span></span><br><span class="line">    <span class="keyword">elseif</span> &amp;<span class="keyword">filetype</span> == <span class="string">'html'</span></span><br><span class="line">        exec <span class="string">"!firefox % &amp;"</span></span><br><span class="line">    <span class="keyword">elseif</span> &amp;<span class="keyword">filetype</span> == <span class="string">'mkd'</span></span><br><span class="line">        exec <span class="string">"!~/.vim/markdown.pl % &gt; %.html &amp;"</span></span><br><span class="line">        exec <span class="string">"!firefox %.html &amp;"</span></span><br><span class="line">    <span class="keyword">endif</span></span><br><span class="line">endfunc</span><br></pre></td></tr></table></figure>
+<p>另外一种方法：<br>
+<code>au BufRead *.py map &lt;buffer&gt; &lt;F9&gt; :w&lt;CR&gt;:!/usr/bin/env python % &lt;CR&gt;</code></p>
+<h2><span id="插件管理与vundle">插件管理与Vundle</span></h2>
+<p>插件的管理是vim配置中非常重要的一个内容，因为单纯的修改.vimrc并不能完全满足我们的需求，这时候我们就需要插件了。而在插件管理上现在最常用的有Vundle，pathon等。这里我们暂时只记录Vundle插件管理工具的配置过程。</p>
+<h3><span id="vundle安装">Vundle安装</span></h3>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/VundleVim/Vundle.<span class="keyword">vim</span>.git ~/.<span class="keyword">vim</span>/bundle/Vundle.<span class="keyword">vim</span></span><br></pre></td></tr></table></figure>
+<h3><span id="配置">配置</span></h3>
+<p>将以下的命令置入你的.vimrc文件中，可以根据注释移除你不想要的插件。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> nocompatible              <span class="comment">" be iMproved, required</span></span><br><span class="line"><span class="keyword">filetype</span> off                  <span class="comment">" required</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" set the runtime path to include Vundle and initialize</span></span><br><span class="line"><span class="keyword">set</span> rtp+=~/.<span class="keyword">vim</span>/bundle/Vundle.<span class="keyword">vim</span></span><br><span class="line"><span class="keyword">call</span> vundle#begin()</span><br><span class="line"><span class="comment">" alternatively, pass a path where Vundle should install plugins</span></span><br><span class="line"><span class="comment">"call vundle#begin('~/some/path/here')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" let Vundle manage Vundle, required</span></span><br><span class="line">Plugin <span class="string">'VundleVim/Vundle.vim'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" The following are examples of different formats supported.</span></span><br><span class="line"><span class="comment">" Keep Plugin commands between vundle#begin/end.</span></span><br><span class="line"><span class="comment">" plugin on GitHub repo</span></span><br><span class="line">Plugin <span class="string">'tpope/vim-fugitive'</span></span><br><span class="line"><span class="comment">" plugin from http://vim-scripts.org/vim/scripts.html</span></span><br><span class="line">Plugin <span class="string">'L9'</span></span><br><span class="line"><span class="comment">" Git plugin not hosted on GitHub</span></span><br><span class="line">Plugin <span class="string">'git://git.wincent.com/command-t.git'</span></span><br><span class="line"><span class="comment">" git repos on your local machine (i.e. when working on your own plugin)</span></span><br><span class="line">Plugin <span class="string">'file:///home/gmarik/path/to/plugin'</span></span><br><span class="line"><span class="comment">" The sparkup vim script is in a subdirectory of this repo called vim.</span></span><br><span class="line"><span class="comment">" Pass the path to set the runtimepath properly.</span></span><br><span class="line">Plugin <span class="string">'rstacruz/sparkup'</span>, &#123;<span class="string">'rtp'</span>: <span class="string">'vim/'</span>&#125;</span><br><span class="line"><span class="comment">" Install L9 and avoid a Naming conflict if you've already installed a</span></span><br><span class="line"><span class="comment">" different version somewhere else.</span></span><br><span class="line">Plugin <span class="string">'ascenator/L9'</span>, &#123;<span class="string">'name'</span>: <span class="string">'newL9'</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">" All of your Plugins must be added before the following line</span></span><br><span class="line"><span class="keyword">call</span> vundle#end()            <span class="comment">" required</span></span><br><span class="line"><span class="keyword">filetype</span> plugin <span class="built_in">indent</span> <span class="keyword">on</span>    <span class="comment">" required</span></span><br><span class="line"><span class="comment">" To ignore plugin indent changes, instead use:</span></span><br><span class="line"><span class="comment">"filetype plugin on</span></span><br><span class="line"><span class="comment">"</span></span><br><span class="line"><span class="comment">" Brief help</span></span><br><span class="line"><span class="comment">" :PluginList       - lists configured plugins</span></span><br><span class="line"><span class="comment">" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span></span><br><span class="line"><span class="comment">" :PluginSearch foo - searches for foo; append `!` to refresh local cache</span></span><br><span class="line"><span class="comment">" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span></span><br><span class="line"><span class="comment">"</span></span><br><span class="line"><span class="comment">" see :h vundle for more details or wiki for FAQ</span></span><br><span class="line"><span class="comment">" Put your non-Plugin stuff after this line</span></span><br></pre></td></tr></table></figure>
+<h3><span id="安装插件">安装插件</span></h3>
+<p>在Vim的命令行运行<code>:PluginInstall</code><br>
+也可以在shell的命令行运行:<code>vim +PluginInstall +qall</code></p>
+<h2><span id="插件的推荐">插件的推荐</span></h2>
+<h3><span id="nerd-tree">NERD Tree</span></h3>
+<p>NERD Tree是一个树形目录插件，方便浏览当前目录有哪些目录和文件。<br>
+在~/.vimrc文件中配置NERD Tree，设置一个启用或禁用NERD Tree的键映射</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"F5开启关闭树"</span></span><br><span class="line"><span class="keyword">nmap</span> <span class="symbol">&lt;F5&gt;</span> :NERDTreeToggle<span class="symbol">&lt;cr&gt;</span></span><br><span class="line"><span class="keyword">let</span> NERDTreeChDirMode=<span class="number">1</span></span><br><span class="line"><span class="string">"显示书签"</span></span><br><span class="line"><span class="keyword">let</span> NERDTreeShowBookmarks=<span class="number">1</span></span><br><span class="line"><span class="string">"设置忽略文件类型"</span></span><br><span class="line"><span class="keyword">let</span> NERDTreeIgnore=[<span class="string">'\~$'</span>, <span class="string">'\.pyc$'</span>, <span class="string">'\.swp$'</span>]</span><br><span class="line"><span class="string">"窗口大小"</span></span><br><span class="line"><span class="keyword">let</span> NERDTreeWinSize=<span class="number">25</span></span><br></pre></td></tr></table></figure>
+<p>所以可以通过F5快捷启动或关闭树形目录。<br>
+NERD Tree提供一些常用快捷键来操作目录：</p>
+<p>通过hjkl来移动光标<br>
+o打开关闭文件或目录，如果想打开文件，必须光标移动到文件名<br>
+t在标签页中打开<br>
+s和i可以水平或纵向分割窗口打开文件<br>
+p到上层目录<br>
+P到根目录<br>
+K到同目录第一个节点<br>
+P到同目录最后一个节点</p>
+<h3><span id="代码折叠">代码折叠</span></h3>
+<p>很多的IDE都提供对方法和类进行折叠的手段，只显示定义而不显示全部代码。<br>
+我们可以在.vimrc中添加下面的代码开启功能:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" Enable folding</span></span><br><span class="line"><span class="keyword">set</span> foldmethod=<span class="built_in">indent</span></span><br><span class="line"><span class="keyword">set</span> <span class="built_in">foldlevel</span>=<span class="number">99</span></span><br><span class="line"><span class="comment">" Enable folding with the spacebar</span></span><br><span class="line"><span class="keyword">nnoremap</span> <span class="symbol">&lt;space&gt;</span> za</span><br></pre></td></tr></table></figure>
+<p>这样空格键可以折叠了。<br>
+我们还可以使用插件SimplyFold。<br>
+在.vimrc中加入下面的代码，通过Vundle进行安装:<br>
+<code>Plugin 'tmhedberg/SimpylFold'</code><br>
+如果想要看到折叠代码的文档字符串<br>
+<code>let g:SimpylFold_docstring_preview=1</code></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/11/14/pip的代理设置/" data-toggle="tooltip" data-placement="top" title="pip的代理设置">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/11/12/为Git设置代理/" data-toggle="tooltip" data-placement="top" title="为Git设置代理">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#vim" title="vim">vim</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://yoursite-url/2016/11/13/vim配置/";
+    var disqus_url = "http://yoursite-url/2016/11/13/vim配置/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/Jeack">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/Jeackvan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/Jeack">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Jeack 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite-url/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite-url/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
